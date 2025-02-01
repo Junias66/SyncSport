@@ -12,6 +12,8 @@ class NumeroController extends Controller
      */
     public function index()
     {
+        $numero = numero::all();
+        return view('backend.numero.index',compact('numero'));
         //
     }
 
@@ -20,6 +22,7 @@ class NumeroController extends Controller
      */
     public function create()
     {
+        return view('backend.numero.create');
         //
     }
 
@@ -28,6 +31,12 @@ class NumeroController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'number'=>'required',
+            'number_status'=>'required',
+        ]);
+        numero::create($request->all());
+        return redirect()->route('numero.index');
         //
     }
 

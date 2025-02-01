@@ -12,6 +12,8 @@ class AnnoncesController extends Controller
      */
     public function index()
     {
+        $annonces = Annonces::all();
+        return view('backend.annonces.index',compact('annonces'));
         //
     }
 
@@ -20,6 +22,7 @@ class AnnoncesController extends Controller
      */
     public function create()
     {
+        return view('backend.annonces.create');
         //
     }
 
@@ -28,6 +31,13 @@ class AnnoncesController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'minute_but'=>'required',
+            'stat_individ'=>'required',
+            'type_but_marque'=>'required',
+        ]);
+        Annonces::create($request->all());
+        return redirect()->route('annonces.index');
         //
     }
 

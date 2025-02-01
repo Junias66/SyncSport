@@ -8,7 +8,7 @@
                 <div id="multilevel-btn_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
                     <div class="d-flex align-items-center">
                         <div class="dt-buttons btn-group me-3">
-                            <a href="{{ route('create.team.type') }}">
+                            <a href="{{ route('team_type.create') }}">
                                 <button class="btn btn-primary buttons-collection">
                                     <span>Ajouter un type d'équipe</span>   
                             </button>

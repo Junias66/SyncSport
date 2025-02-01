@@ -12,6 +12,8 @@ class DocumentController extends Controller
      */
     public function index()
     {
+        $document = Document::all();
+        return view('backend.document.index',compact('document'));
         //
     }
 
@@ -20,6 +22,7 @@ class DocumentController extends Controller
      */
     public function create()
     {
+        return view('backend.document.create');
         //
     }
 
@@ -28,6 +31,13 @@ class DocumentController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'nom_document'=>'required',
+            'statut_doc'=>'required',
+            'user_id'=>'required',
+        ]);
+        Document::create($request->all());
+        return redirect()->route('numero.index');
         //
     }
 

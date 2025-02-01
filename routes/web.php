@@ -1,10 +1,21 @@
 <?php
 
+use App\Http\Controllers\AnnoncesController;
+use App\Http\Controllers\ButController;
+use App\Http\Controllers\CartonController;
 use App\Http\Controllers\CategAgeController;
 use App\Http\Controllers\ClubController;
+use App\Http\Controllers\CoachTypeController;
+use App\Http\Controllers\CompetitionController;
+use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\EntrainementController;
+use App\Http\Controllers\LieuTerrainController;
+use App\Http\Controllers\MatcheController;
+use App\Http\Controllers\NumeroController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TeamTypeController;
+use App\Http\Controllers\TypeButController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -39,9 +50,7 @@ Route::post('/deconnexion', [ClubController::class, 'destroy'])->name('logout');
 
 //TypesEquipes
 Route::middleware(['auth'])->group(function(){
-    Route::get('/ajouter/type/equipe', [TeamTypeController::class, 'create'])->name('create.team.type');
-    Route::post('/ajouter', [TeamTypeController::class, 'store'])->name('store.team.type');
-    Route::get('/liste/type/équipes', [TeamTypeController::class, 'index'])->name('index.team.type'); 
+   Route::resource('team_type', TeamController::class);
 });
 
 //Equipes
@@ -57,4 +66,45 @@ Route::middleware(['auth'])->group(function(){
 //Catégorie d'âge
 Route::middleware(['auth'])->group(function(){
     Route::resource('categories', CategAgeController::class);
+});
+
+//Numero 
+Route::middleware(['auth'])->group(function(){
+    Route::resource('numero', NumeroController::class);
+});
+//Terrain 
+Route::middleware(['auth'])->group(function(){
+    Route::resource('terrain', LieuTerrainController::class);
+});
+//carton  
+Route::middleware(['auth'])->group(function(){
+    Route::resource('carton', CartonController::class);
+});
+//but
+Route::middleware(['auth'])->group(function(){
+    Route::resource('but',ButController::class);
+});
+//annonce
+Route::middleware(['auth'])->group(function(){
+    Route::resource('annonces', AnnoncesController::class);
+});
+//coach
+Route::middleware(['auth'])->group(function(){
+    Route::resource('coach', CoachTypeController::class);
+});
+//competition
+Route::middleware(['auth'])->group(function(){
+    Route::resource('competition', CompetitionController::class);
+});
+//document
+Route::middleware(['auth'])->group(function(){
+    Route::resource('document', DocumentController::class);
+});
+//entrainement
+Route::middleware(['auth'])->group(function(){
+    Route::resource('entrainement', EntrainementController::class);
+});
+//matche
+Route::middleware(['auth'])->group(function(){
+    Route::resource('matche', MatcheController::class);
 });

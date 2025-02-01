@@ -12,6 +12,8 @@ class MatcheController extends Controller
      */
     public function index()
     {
+        $matche = matche::all();
+        return view('backend.matche.index',compact('matche'));
         //
     }
 
@@ -20,6 +22,7 @@ class MatcheController extends Controller
      */
     public function create()
     {
+        return view('backend.matche.create');
         //
     }
 
@@ -28,6 +31,18 @@ class MatcheController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'match_date'=>'required',
+            'match_time'=>'required',
+            'terrain'=>'required',
+            'arbitre_name'=>'required',
+            'team_name'=>'required',
+            'team_adverse'=>'required',
+            'match_status'=>'required',
+            'match_pics'=>'required',
+        ]);
+        matche::create($request->all());
+        return redirect()->route('matche.index');
         //
     }
 

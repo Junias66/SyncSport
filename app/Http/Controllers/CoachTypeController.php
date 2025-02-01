@@ -12,6 +12,8 @@ class CoachTypeController extends Controller
      */
     public function index()
     {
+        $coach = coach_type::all();
+        return view('backend.coach.index',compact('coach'));
         //
     }
 
@@ -20,6 +22,7 @@ class CoachTypeController extends Controller
      */
     public function create()
     {
+        return view('backend.coach.create');
         //
     }
 
@@ -28,6 +31,11 @@ class CoachTypeController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'type_coach_name'=>'required',
+        ]);
+        coach_type::create($request->all());
+        return redirect()->route('coach.index');
         //
     }
 

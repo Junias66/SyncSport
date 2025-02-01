@@ -13,6 +13,8 @@ class CartonController extends Controller
      */
     public function index()
     {
+        $carton = carton::all();
+        return view('backend.carton.index',compact('carton'));
         //
     }
 
@@ -21,6 +23,7 @@ class CartonController extends Controller
      */
     public function create()
     {
+        return view('backend.carton.create');
         //
     }
 
@@ -29,6 +32,14 @@ class CartonController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'type_carton'=>'required|in:jaune,rouge',
+            'minute'=>'required',
+            'motif'=>'required',
+            'joueurconc_id'=>'required',
+        ]);
+        carton::create($request->all());
+        return redirect()->route('carton.index');
         //
     }
 

@@ -9,7 +9,7 @@
         </p>
     </div>
     <div class="card-body basic-form">
-      <form class="form theme-form flat-form" action="{{ route('store.team.type') }}" method="POST">
+      <form class="form theme-form flat-form" action="{{ route('team_type.store') }}" method="POST">
         @csrf
         <div class="row">
           <div class="col">

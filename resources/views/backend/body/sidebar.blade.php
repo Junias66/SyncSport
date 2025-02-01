@@ -31,8 +31,8 @@
                   
                 <h6>Equipes</h6><span class="badge"></span><i class="iconly-Arrow-Right-2 icli"></i></a>
                 <ul class="sidebar-submenu">
-                  <li> <a href="{{ route('create.team.type') }}">Ajouter un type d'équipe</a></li>
-                  <li><a href="{{ route('index.team.type') }}">Liste des types d'équipes </a></li>
+                  <li> <a href="{{ route('team_type.create') }}">Ajouter un type d'équipe</a></li>
+                  <li><a href="{{ route('team_type.index') }}">Liste des types d'équipes </a></li>
                   <li> <a href="{{ route('teams.create') }}">Ajouter une équipe</a></li>
                   <li> <a href="{{ route('teams.index') }}">Liste des équipes</a></li>
                 </ul>
@@ -90,10 +90,10 @@
                   
                 <h6>Entraîneur</h6><span class="badge"></span><i class="iconly-Arrow-Right-2 icli"></i></a>
               <ul class="sidebar-submenu">
-                <li> <a href="index.html">Ajouter un type d'entraîneur</a></li>
-                <li><a href="dashboard-02.html">Liste des types d'entraîneurs </a></li>
-                <li> <a href="dashboard-03.html">Ajouter un entraîneur</a></li>
-                <li> <a href="dashboard-03.html">Liste des entraîneurs</a></li>
+                <li> <a href="{{route('coach.create')}}">Ajouter un type d'entraîneur</a></li>
+                <li><a href="{{route('coach.index')}}">Liste des types d'entraîneurs </a></li>
+                <li> <a href="#">Ajouter un entraîneur</a></li>
+                <li> <a href="#">Liste des entraîneurs</a></li>
               </ul>
              </li>
               <li class="sidebar-list"><a class="sidebar-link" href="javascript:void(0)">
@@ -114,10 +114,10 @@
                   
                   <h6>Entraînements</h6><i class="iconly-Arrow-Right-2 icli"> </i></a>
                 <ul class="sidebar-submenu">
-                  <li> <a href="box-layout.html">Ajouter un type d'entraînement</a></li>
-                  <li><a href="layout-rtl.html">Planifier un entraînement</a></li>
-                  <li> <a href="layout-dark.html">Liste des types d'entraînements</a></li>
-                  <li> <a href="layout-dark.html">Historique des entraînements</a></li>
+                  <li> <a href="{{route('entrainement.create')}}">Ajouter un type d'entraînement</a></li>
+                  <li><a href="{{route('entrainement.create')}}">Planifier un entraînement</a></li>
+                  <li> <a href="{{route('entrainement.index')}}">Liste des types d'entraînements</a></li>
+                  <li> <a href="{{route('entrainement.index')}}">Historique des entraînements</a></li>
                 </ul>
               </li>
               <li class="sidebar-list"> <a class="sidebar-link" href="javascript:void(0)">
@@ -141,8 +141,8 @@
                   
                 <h6>Matchs </h6><i class="iconly-Arrow-Right-2 icli"></i></a>
                 <ul class="sidebar-submenu">
-                    <li> <a href="general-widget.html">Planifier un match</a></li>
-                    <li><a href="chart-widget.html">Historique des matchs</a></li>
+                    <li> <a href="{{route('matche.create')}}">Planifier un match</a></li>
+                    <li><a href="{{route('matche.index')}}">Historique des matchs</a></li>
                 </ul>
               </li>
               <li class="sidebar-list"> <a class="sidebar-link" href="javascript:void(0)">
@@ -163,8 +163,8 @@
                   
                 <h6>Compétitions </h6><i class="iconly-Arrow-Right-2 icli"></i></a>
               <ul class="sidebar-submenu">
-                <li> <a href="general-widget.html">Ajouter une compétition</a></li>
-                <li><a href="chart-widget.html">Liste des compétitions</a></li>
+                <li> <a href="{{route('competition.create')}}">Ajouter une compétition</a></li>
+                <li><a href="{{route('competition.index')}}">Liste des compétitions</a></li>
               </ul>
              </li>
               <li class="sidebar-main-title">
@@ -241,8 +241,8 @@
                   
                   <h6 class="f-w-600">Numéro</h6><i class="iconly-Arrow-Right-2 icli"> </i></a>
                 <ul class="sidebar-submenu">
-                  <li> <a href="private-chat.html">Ajouter un numéro</a></li>
-                  <li> <a href="group-chat.html">Liste des numéros</a></li>
+                  <li> <a href="{{route('numero.create')}}">Ajouter un numéro</a></li>
+                  <li> <a href="{{route('numero.index')}}">Liste des numéros</a></li>
                 </ul>
               </li>
               <li class="sidebar-list"> <a class="sidebar-link" href="javascript:void(0)">
@@ -270,8 +270,8 @@
                   
                   <h6 class="f-w-600">Terrain</h6><i class="iconly-Arrow-Right-2 icli"> </i></a>
                 <ul class="sidebar-submenu">
-                  <li> <a href="user-profile.html">Ajouter un terrain d'entraînement</a></li>
-                  <li> <a href="edit-profile.html">Liste des terrains d'entraînements</a></li>
+                  <li> <a href="{{route('terrain.create')}}">Ajouter un terrain d'entraînement</a></li>
+                  <li> <a href="{{route('terrain.index')}}">Liste des terrains d'entraînements</a></li>
                   <li> <a href="user-cards.html">Terrains déja utilisé</a></li>
                 </ul>
               </li>
@@ -285,8 +285,8 @@
                       
                     <h6 class="f-w-600">Carton</h6><i class="iconly-Arrow-Right-2 icli"> </i></a>
                     <ul class="sidebar-submenu">
-                        <li> <a href="private-chat.html">Ajouter un type de carton</a></li>
-                        <li> <a href="group-chat.html">Liste des types cartons</a></li>
+                        <li> <a href="{{route('carton.create')}}">Ajouter un type de carton</a></li>
+                        <li> <a href="{{route('carton.index')}}">Liste des types cartons</a></li>
                     </ul>
                 </li>
                 <li class="sidebar-list"> <a class="sidebar-link" href="javascript:void(0)">
@@ -302,8 +302,8 @@
                       </svg>                      
                     <h6 class="f-w-600">But</h6><i class="iconly-Arrow-Right-2 icli"> </i></a>
                     <ul class="sidebar-submenu">
-                        <li> <a href="private-chat.html">Ajouter un type de but</a></li>
-                        <li> <a href="group-chat.html">Liste des types de but</a></li>
+                        <li> <a href="{{route('but.create')}}">Ajouter un type de but</a></li>
+                        <li> <a href="{{route('but.index')}}">Liste des types de but</a></li>
                     </ul>
                 </li>
               <li class="sidebar-main-title">
@@ -362,8 +362,8 @@
                   
                   <h6 class="f-w-600">Annonces</h6><i class="iconly-Arrow-Right-2 icli"> </i></a>
                 <ul class="sidebar-submenu">
-                  <li> <a href="typography.html">Publier une annonce</a></li>
-                  <li><a href="avatars.html">Liste des annonces</a></li>
+                  <li> <a href="{{route('annonces.create')}}">Publier une annonce</a></li>
+                  <li><a href="{{route('annonces.index')}}">Liste des annonces</a></li>
                 </ul>
               </li>
               <li class="sidebar-list"><a class="sidebar-link" href="javascript:void(0)">
@@ -379,8 +379,8 @@
                   
                   <h6 class="f-w-600">Document</h6><i class="iconly-Arrow-Right-2 icli"></i></a>
                 <ul class="sidebar-submenu"> 
-                  <li><a href="scrollable.html">Ajouter un document</a></li>
-                  <li> <a href="tree.html">Historique </a></li>
+                  <li><a href="{{route('document.create')}}">Ajouter un document</a></li>
+                  <li> <a href="{{route('document.index')}}">Historique </a></li>
                 </ul>
               </li>
             </ul>

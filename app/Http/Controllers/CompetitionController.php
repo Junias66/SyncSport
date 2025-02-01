@@ -12,6 +12,8 @@ class CompetitionController extends Controller
      */
     public function index()
     {
+        $competition = Competition::all();
+        return view('backend.competition.index',compact('competition'));
         //
     }
 
@@ -20,6 +22,7 @@ class CompetitionController extends Controller
      */
     public function create()
     {
+        return view('backend.competition.create');
         //
     }
 
@@ -28,6 +31,13 @@ class CompetitionController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'competition_name'=>'required',
+            'description'=>'required',
+            'statut_compet'=>'required',
+        ]);
+        Competition::create($request->all());
+        return redirect()->route('competition.index');
         //
     }
 

@@ -12,6 +12,8 @@ class ButController extends Controller
      */
     public function index()
     {
+        $but = but::all();
+        return view('backend.but.index',compact('but'));
         //
     }
 
@@ -20,6 +22,7 @@ class ButController extends Controller
      */
     public function create()
     {
+        return view('backend.but.create');
         //
     }
 
@@ -28,6 +31,13 @@ class ButController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'minute_but'=>'required',
+            'stat_individ'=>'required',
+            'type_but_marque'=>'required',
+        ]);
+        but::create($request->all());
+        return redirect()->route('but.index');
         //
     }
 

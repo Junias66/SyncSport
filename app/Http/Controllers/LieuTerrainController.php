@@ -12,6 +12,8 @@ class LieuTerrainController extends Controller
      */
     public function index()
     {
+        $terrain = lieu_terrain::all();
+        return view('backend.terrain.index',compact('terrain'));
         //
     }
 
@@ -20,6 +22,7 @@ class LieuTerrainController extends Controller
      */
     public function create()
     {
+        return view('backend.terrain.create');
         //
     }
 
@@ -28,6 +31,16 @@ class LieuTerrainController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'nom_terrain'=>'required',
+            'photo'=>'required',
+            'latitude'=>'required',
+            'longitude'=>'required',
+            'statut'=>'required',
+
+        ]);
+        lieu_terrain::create($request->all());
+        return redirect()->route('terrain.index');
         //
     }
 

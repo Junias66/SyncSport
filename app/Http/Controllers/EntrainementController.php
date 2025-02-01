@@ -12,6 +12,8 @@ class EntrainementController extends Controller
      */
     public function index()
     {
+        $entrainement = entrainement::all();
+        return view('backend.entrainement.index',compact('entrainement'));
         //
     }
 
@@ -20,6 +22,7 @@ class EntrainementController extends Controller
      */
     public function create()
     {
+        return view('backend.entrainement.create');
         //
     }
 
@@ -28,6 +31,16 @@ class EntrainementController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'nom_entrainement'=>'required',
+            'date_ent'=>'required',
+            'heure_ent'=>'required',
+            'description'=>'required',
+            'statut'=>'required',
+            'lieu_id'=>'required',
+        ]);
+        entrainement::create($request->all());
+        return redirect()->route('entrainement.index');
         //
     }
 
