@@ -222,7 +222,7 @@
                   <h6 class="f-w-600">Catégorie d'âge</h6><i class="iconly-Arrow-Right-2 icli"> </i></a>
                 <ul class="sidebar-submenu">
                   <li> <a href="{{ route('categories.create') }}">Ajouter une catégorie d'âge</a></li>
-                  <li> <a href="product.html">Liste des catégories d'âge</a></li>
+                  <li> <a href="{{ route('categories.index') }}">Liste des catégories d'âge</a></li>
                 </ul>
               </li>
               <li class="sidebar-list"> <a class="sidebar-link" href="javascript:void(0)">
