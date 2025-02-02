@@ -49,7 +49,7 @@
                             Inscription 100% gratuite.</p>
                         <div>
                             <label for="nom_admin">Votre nom <span style="color: red"> *</span></label>
-                            <input type="text" name="nom_admin" class="form-control @error('nom_admin') is-invalid @enderror" id="nom_admin" value="{{ old('nom_admin') }}" required>
+                       .     <input type="text" name="nom_admin" class="form-control @error('nom_admin') is-invalid @enderror" id="nom_admin" value="{{ old('nom_admin') }}" required>
                             @error('nom_admin')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

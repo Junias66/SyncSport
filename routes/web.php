@@ -16,6 +16,7 @@ use App\Http\Controllers\PositionController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TeamTypeController;
 use App\Http\Controllers\TypeButController;
+use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -107,4 +108,9 @@ Route::middleware(['auth'])->group(function(){
 //matche
 Route::middleware(['auth'])->group(function(){
     Route::resource('matche', MatcheController::class);
+});
+
+//Joueurs
+Route::middleware(['auth'])->group(function(){
+    Route::resource('players', UserController::class);
 });

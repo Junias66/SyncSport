@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\categ_age;
+use App\Models\numero;
 use App\Models\position;
+use App\Models\team;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class PositionController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $club = Auth::user()->club_id;
-        $positions = Position::paginate(5);
-        return view('backend.position.index', compact('positions'));
+        //
     }
 
     /**
@@ -23,7 +23,11 @@ class PositionController extends Controller
      */
     public function create()
     {
-        return view('backend.position.create');
+        $positions = Position::all();
+        $numeros = numero::all();
+        $categ = categ_age::all();
+        $teams = team::all();
+        return view('backend.player.create', compact('positions', 'numeros', 'categ', 'teams'));
     }
 
     /**
@@ -31,21 +35,13 @@ class PositionController extends Controller
      */
     public function store(Request $request)
     {
-       $request->validate([
-        'position_name' => 'required',
-       ]);
-
-       $position = Position::create([
-        'position_name' => $request->position_name,
-       ]);
-
-       return redirect()->route('positions.index')->with('success', 'Position ajouté avec succès.');
+        //
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(position $position)
+    public function show(string $id)
     {
         //
     }
@@ -53,7 +49,7 @@ class PositionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(position $position)
+    public function edit(string $id)
     {
         //
     }
@@ -61,7 +57,7 @@ class PositionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, position $position)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -69,7 +65,7 @@ class PositionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(position $position)
+    public function destroy(string $id)
     {
         //
     }
