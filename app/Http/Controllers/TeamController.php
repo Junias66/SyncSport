@@ -65,24 +65,38 @@ class TeamController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(team $team)
+    public function edit($id)
     {
+        $teams = Team::findOrFail($id);
+        return view('backend.team.team_create',compact('teams'));
         //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, team $team)
+    public function update(Request $request,$id)
     {
+        $request->validate([
+            'team_name' => 'required',
+            'team_pics' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'existing_team_id' => 'required',
+        ]);
+        $team = team::findOrFail($id);
+        $team->update($request->all());
+
+        return redirect()->route('teams.index');
         //
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(team $team)
+    public function destroy($id)
     {
+        $team = team::findOrFail($id);
+        $team->delete();
+        return redirect()->route('teams.index');
         //
     }
 }
