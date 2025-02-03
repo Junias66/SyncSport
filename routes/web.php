@@ -51,7 +51,7 @@ Route::post('/deconnexion', [ClubController::class, 'destroy'])->name('logout');
 
 //TypesEquipes
 Route::middleware(['auth'])->group(function(){
-   Route::resource('team_type', TeamController::class);
+   Route::resource('team_type', TeamTypeController::class);
 });
 
 //Equipes
