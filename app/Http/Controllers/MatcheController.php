@@ -57,24 +57,43 @@ class MatcheController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(matche $matche)
+    public function edit($id)
     {
+        $matche = matche::findOrFail($id);
+        return view('backend.matche.index',compact('matche'));
         //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, matche $matche)
+    public function update(Request $request,$id)
     {
+        $request->validate([
+            'match_date'=>'required',
+            'match_time'=>'required',
+            'terrain'=>'required',
+            'arbitre_name'=>'required',
+            'team_name'=>'required',
+            'team_adverse'=>'required',
+            'match_status'=>'required',
+            'match_pics'=>'required',
+        ]);
+        $matche = matche::findOrFail($id);
+        $matche->update($request->all());
+
+        return redirect()->route('matche.index');
         //
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(matche $matche)
+    public function destroy($id)
     {
+        $matche = matche::findOrFail($id);
+        $matche->delete();
+        return redirect()->route('matche.index');
         //
     }
 }

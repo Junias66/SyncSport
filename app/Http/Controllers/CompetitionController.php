@@ -52,24 +52,38 @@ class CompetitionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Competition $competition)
+    public function edit($id)
     {
+        $competition = Competition::findOrFail($id);
+        return view('backend.competition.index',compact('competition'));
         //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Competition $competition)
+    public function update(Request $request,  $id)
     {
+        $request->validate([
+            'competition_name'=>'required',
+            'description'=>'required',
+            'statut_compet'=>'required',
+        ]);
+        $competition=Competition::findOrFail($id);
+        $competition->update($request->all());
+
+        return redirect()->route('competition.index');
         //
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Competition $competition)
+    public function destroy( $id)
     {
+        $competition = Competition::findOrFail($id);
+        $competition->delete();
+        return redirect()->route('competition.index');
         //
     }
 }
