@@ -60,7 +60,7 @@
                   <h6>Joueurs </h6><i class="iconly-Arrow-Right-2 icli"></i></a>
                 <ul class="sidebar-submenu">
                   <li> <a href="{{ route('players.create') }}">Ajouter un joueur</a></li>
-                  <li><a href="chart-widget.html">Liste des joueurs</a></li>
+                  <li><a href="{{ route('players.index') }}">Liste des joueurs</a></li>
                 </ul>
               </li>
               <li class="sidebar-list"><a class="sidebar-link" href="javascript:void(0)"> 

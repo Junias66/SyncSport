@@ -37,7 +37,7 @@
                             @foreach($teamtype as $key => $value)
                                 <tr role="row">
                                     <td>{{ $key + 1 }}</td>
-                                    <td>{{ $value->type_team_name }}</td>
+                                    <td id="team-type-name-{{ $value->id }}">{{ $value->type_team_name }}</td>
                                     <td>
                                         <ul class="action d-flex list-unstyled">
                                             <!-- Bouton Modifier -->
@@ -70,15 +70,16 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <form action="{{ route('team_type.update', $value->id) }}" method="POST">
-                                                    @csrf
-                                                    @method('PUT')
+                                                <form class="updateTeamTypeForm" data-id="{{ $value->id }}" action="{{ route('team_type.update', $value->id) }}" method="POST">
+                                                    <input type="hidden" name="_method" value="PUT">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
+                                
                                                     <div class="mb-3">
-                                                        <label for="type_team_name" class="form-label">Nom du type d'équipe</label>
-                                                        <input type="text" class="form-control" id="type_team_name" name="type_team_name" value="{{ $value->type_team_name }}" required>
+                                                        <label for="type_team_name_{{ $value->id }}" class="form-label">Nom du type d'équipe</label>
+                                                        <input type="text" class="form-control type_team_name" id="type_team_name_{{ $value->id }}" name="type_team_name" value="{{ $value->type_team_name }}" required>
                                                     </div>
-
+                                
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
                                                         <button type="submit" class="btn btn-primary">Enregistrer</button>
@@ -102,5 +103,72 @@
         </div>
     </div>
 </div>
+<script>
 
+$(document).ready(function() {
+    $(".updateTeamTypeForm").submit(function(event) {
+        event.preventDefault();
+
+        let form = $(this);
+        let id = form.data("id");
+        let type_team_name = form.find(".type_team_name").val();
+        let url = "/team_type/" + id;
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: {
+                _token: "{{ csrf_token() }}",
+                _method: "PUT",
+                type_team_name: type_team_name
+            },
+            success: function(response) {
+                if (response.success) {
+                    $("#editModal" + id).modal("hide");
+
+                    // Réinitialiser la liste
+                    let tableBody = $("tbody");
+                    tableBody.empty();  // Efface le tableau
+
+                    // Remplir avec les nouvelles données
+                    response.teamtypes.forEach((team, index) => {
+                        tableBody.append(`
+                            <tr role="row">
+                                <td>${index + 1}</td>
+                                <td id="team-type-name-${team.id}">${team.type_team_name}</td>
+                                <td>
+                                    <ul class="action d-flex list-unstyled">
+                                        <li class="edit me-2">
+                                            <a href="#" data-bs-toggle="modal" data-bs-target="#editModal${team.id}">
+                                                <i class="fas fa-pencil-alt text-warning"></i>
+                                            </a>
+                                        </li>
+                                        <li class="delete">
+                                            <form action="/team_type/${team.id}" method="POST" style="display:inline;">
+                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <button type="submit" style="border: none; background: none; color: red;">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        `);
+                    });
+
+                    alert("Mise à jour réussie !");
+                } else {
+                    alert("Erreur: " + response.message);
+                }
+            },
+            error: function(xhr) {
+                alert("Une erreur est survenue. Vérifiez votre connexion.");
+            }
+        });
+    });
+});
+
+</script>
 @endsection

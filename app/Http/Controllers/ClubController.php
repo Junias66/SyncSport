@@ -71,6 +71,7 @@ class ClubController extends Controller
                     'email' => $email,
                     'password' => Hash::make($request->password),
                     'club_id' => $club->id,
+                    'role' => 'admin',
                     'activation_token' => Str::random(60),
                 ]);
                 // Envoi de la notification pour activer le compte

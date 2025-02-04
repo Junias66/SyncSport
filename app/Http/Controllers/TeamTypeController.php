@@ -37,7 +37,7 @@ class TeamTypeController extends Controller
             'type_team_name' =>$request->type_team,
         ]);
 
-        return redirect()->route('type_team.index')->with([
+        return redirect()->route('team_type.index')->with([
             'message' => 'Le type d\'équipe a été ajouté avec succès',
             'alert-type' => 'success',
         ]);
@@ -67,13 +67,23 @@ class TeamTypeController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'type_team' => 'required',
+            'type_team_name' => 'required',
         ]);
-        $team_type = Team_type::findOrFail($id);
-        $team_type->update($request->all());
+        try {
+            $team_type = Team_type::findOrFail($id);
+            $team_type->update([
+                'type_team_name' => $request->type_team_name
+            ]);
+    
+            $teamtypes = Team_type::all();
 
-        return redirect()->route('team_type.index');
-        //
+            return redirect()->route('team_type.index')->with('teamtypes', $teamtypes)->with('success', "Type d'équipe mis à jour avec succès !");
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Erreur lors de la mise à jour.'
+            ], 500);
+        }
     }
 
     /**
@@ -84,7 +94,7 @@ class TeamTypeController extends Controller
         $teamtype = Team_Type::findOrFail($id);
         $teamtype->delete();
 
-        return redirect()->route('team_Type.index');
+        return redirect()->route('team_type.index');
         //
     }
 }

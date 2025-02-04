@@ -29,6 +29,7 @@ return new class extends Migration
             $table->float('weight_players')->nullable();
             $table->string('status')->nullable();
             $table->text('description')->nullable();
+            $table->enum('role', ['admin', 'player', 'entraineur'])->default('admin');
             $table->string('rôle_status')->nullable();
             $table->string('activation_token')->nullable();
             $table->boolean('is_active')->default(false);
