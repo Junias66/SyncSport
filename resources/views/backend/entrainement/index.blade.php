@@ -35,11 +35,15 @@
                     <td>{{ $e->lieu_id }}</td>
                     <td>
                         <a href="#" class="btn btn-warning btn-sm">Modifier</a>
-                        <form action="#" method="POST" class="d-inline">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
-                        </form>
+                        <li class="delete">
+                            <form action="{{ route('entrainement.destroy', $e->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" style="background: none; border: none; color: inherit;">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </li>
                     </td>
                 </tr>
             @endforeach

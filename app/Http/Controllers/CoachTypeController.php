@@ -50,24 +50,36 @@ class CoachTypeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(coach_type $coach_type)
+    public function edit($id)
     {
+        $coach_type = coach_type ::findOrFail($id);
+        return view('backend.coach.index',compact(' coach_type'));
         //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, coach_type $coach_type)
+    public function update(Request $request, $id)
     {
+        $request->validate([
+            'type_coach_name'=>'required',
+        ]);
+        $coach = coach_type::findOrFail($id);
+        $coach->update($request->all());
+
+        return redirect()->route('coach.index');
         //
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(coach_type $coach_type)
+    public function destroy($id)
     {
+        $coach = coach_type::findOrFail($id);
+        $coach->delete();
+        return redirect()->route('coach.index');
         //
     }
 }

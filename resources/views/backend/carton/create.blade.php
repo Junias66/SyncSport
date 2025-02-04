@@ -24,16 +24,24 @@
         </div>
         <div class="mb-3">
             <label for="minute" class="form-label">Minute</label>
-            <input type="number" name="minute" class="form-control" required>
+            <input type="time" name="minute" class="form-control" required>
         </div>
+        
         <div class="mb-3">
             <label for="motif" class="form-label">Motif</label>
             <input type="text" name="motif" class="form-control" required>
         </div>
+        
         <div class="mb-3">
             <label for="joueurconc_id" class="form-label">Joueur Concerné</label>
-            <input type="number" name="joueurconc_id" class="form-control" required>
+            <select name="joueurconc_id" class="form-control" required>
+                <option value="">Sélectionnez un joueur</option>
+                @foreach($joueurs as $joueur)
+                    <option value="{{ $joueur->id }}">{{ $joueur->nom }}</option>
+                @endforeach
+            </select>
         </div>
+        
 
         <button type="submit" class="btn btn-success">Enregistrer</button>
         <a href="{{ route('carton.index') }}" class="btn btn-secondary">Annuler</a>

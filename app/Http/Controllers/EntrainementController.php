@@ -55,24 +55,41 @@ class EntrainementController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(entrainement $entrainement)
+    public function edit($id)
     {
+        $entrainement = entrainement ::findOrFail($id);
+        return view('backend.entrainement.index',compact('entrainement'));
         //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, entrainement $entrainement)
+    public function update(Request $request,$id)
     {
+        $request->validate([
+            'nom_entrainement'=>'required',
+            'date_ent'=>'required',
+            'heure_ent'=>'required',
+            'description'=>'required',
+            'statut'=>'required',
+            'lieu_id'=>'required',
+        ]);
+        $entrainement = entrainement ::findOrFail($id);
+        $entrainement->update($request->all());
+
+        return redirect()->route('entrainement.index');
         //
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(entrainement $entrainement)
+    public function destroy($id)
     {
+        $entrainement = entrainement::findOrFail($id);
+        $entrainement->delete();
+        return redirect()->route('entrainement.index');
         //
     }
 }

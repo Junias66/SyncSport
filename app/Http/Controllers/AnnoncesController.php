@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\User;
 use App\Models\Annonces;
 use Illuminate\Http\Request;
 
@@ -12,8 +12,10 @@ class AnnoncesController extends Controller
      */
     public function index()
     {
+        
         $annonces = Annonces::all();
-        return view('backend.annonces.index',compact('annonces'));
+        $users = User::all(); // Récupère tous les utilisateurs
+        return view('backend.annonces.index', compact('annonces', 'users'));
         //
     }
 
@@ -22,7 +24,8 @@ class AnnoncesController extends Controller
      */
     public function create()
     {
-        return view('backend.annonces.create');
+        $users = User::all();
+        return view('backend.annonces.create', compact( 'users'));
         //
     }
 
@@ -32,9 +35,11 @@ class AnnoncesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'minute_but'=>'required',
-            'stat_individ'=>'required',
-            'type_but_marque'=>'required',
+            'type_annonce'=>'required',
+            'titre'=>'required',
+            'message'=>'required',
+            'statut_annonce'=>'required',
+            'user_id'=>'required',
         ]);
         Annonces::create($request->all());
         return redirect()->route('annonces.index');
@@ -52,24 +57,39 @@ class AnnoncesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Annonces $annonces)
+    public function edit( $id)
     {
+        $annonces= Annonces ::findOrFail($id);
+        return view('backend.annonces.index',compact('annonces'));
         //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Annonces $annonces)
+    public function update(Request $request, $id)
     {
+        $request->validate([
+            'type_annonce'=>'required',
+            'titre'=>'required',
+            'message'=>'required',
+            'statut_annonce'=>'required',
+            'user_id'=>'required',
+        ]);
+        $annonces= Annonces ::findOrFail($id);
+        $annonces->update($request->all());
+
+        return redirect()->route('annonces.index');
         //
     }
-
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Annonces $annonces)
+    public function destroy($id)
     {
+        $annonces = Annonces::findOrFail($id);
+        $annonces->delete();
+        return redirect()->route('annonces.index');
         //
     }
 }

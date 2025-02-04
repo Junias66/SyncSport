@@ -51,24 +51,37 @@ class NumeroController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(numero $numero)
+    public function edit($id)
     {
+        $numero = numero::findOrFail($id);
+        return view('backend.numero.index',compact('numero'));
         //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, numero $numero)
+    public function update(Request $request,$id)
     {
+        $request->validate([
+            'number'=>'required',
+            'number_status'=>'required',
+        ]);
+        $numero = numero::findOrFail($id);
+        $numero->update($request->all());
+
+        return redirect()->route('numero.index');
         //
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(numero $numero)
+    public function destroy($id)
     {
+        $numero = numero::findOrFail($id);
+        $numero->delete();
+        return redirect()->route('numero.index');
         //
     }
 }

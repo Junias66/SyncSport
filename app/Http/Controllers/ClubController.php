@@ -152,24 +152,36 @@ class ClubController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(club $club)
+    public function edit($id)
     {
+        $club= club ::findOrFail($id);
+        return view('backend.team.create-type',compact('club'));
         //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, club $club)
+    public function update(Request $request, $id)
     {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:8',
+        ]);
+        $club=club::findOrFail($id);
+        $club->update($request->all());
+
+        return redirect()->route('entrainement.index');
         //
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    /*public function destroy(club $club)
+    /*public function destroy( $id)
     {
+         $club = club::findOrFail($id);
+        $club->delete();
         //
     }*/
 }

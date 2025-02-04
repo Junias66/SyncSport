@@ -53,24 +53,36 @@ class PositionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(position $position)
+    public function edit($id)
     {
+        $positions = position::findOrFail($id);
+        return view('backend.position.index',compact('positions'));
         //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, position $position)
+    public function update(Request $request,$id)
     {
+        $request->validate([
+            'position_name' => 'required',
+        ]);
+        $positions = position::findOrFail($id);
+        $positions->update($request->all());
+
+        return redirect()->route('positions.index');
         //
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(position $position)
+    public function destroy($id)
     {
+        $positions = position::findOrFail($id);
+        $positions->delete();
+        return redirect()->route('positions.index');
         //
     }
 }

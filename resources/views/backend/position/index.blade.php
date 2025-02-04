@@ -46,7 +46,15 @@
                                     <td>
                                         <ul class="action">
                                             <li class="edit"> <a href="#"><i class="fas fa-pencil-alt"></i></a></li>
-                                            <li class="delete"><a href="#"><i class="fas fa-trash"></i></a></li>
+                                            <li class="delete">
+                                                <form action="{{ route('positions.destroy', $value->id) }}" method="POST" style="display:inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" style="background: none; border: none; color: inherit;">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </li>  
                                         </ul>
                                     </td>
                                 </tr>

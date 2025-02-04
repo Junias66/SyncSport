@@ -59,24 +59,38 @@ class CategAgeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(categ_age $categ_age)
+    public function edit( $id)
     {
+        $categ= categ_age ::findOrFail($id);
+        return view('backend.categorie_age.index',compact('categ'));
         //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, categ_age $categ_age)
+    public function update(Request $request, $id)
     {
+        $request->validate([
+            'category_name' => 'required',
+            'age_min' => 'required|integer|min:0',
+            'age_max' => 'required|integer|gte:age_min',
+        ]);
+        $categ= categ_age ::findOrFail($id);
+        $categ->update($request->all());
+
+        return redirect()->route('categories.index');
         //
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(categ_age $categ_age)
+    public function destroy($id)
     {
+        $categ_age = categ_age::findOrFail($id);
+        $categ_age->delete();
+        return redirect()->route('categories.index');
         //
     }
 }

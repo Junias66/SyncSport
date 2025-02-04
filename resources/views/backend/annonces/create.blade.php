@@ -1,12 +1,13 @@
 @extends('backend.dashboard')
 @section('content')
+
 <div class="container">
     <h1 class="my-4">Ajouter une Annonce</h1>
-
-    @if ($errors->any())
+    
+    @if($errors->any())
         <div class="alert alert-danger">
             <ul>
-                @foreach ($errors->all() as $error)
+                @foreach($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
             </ul>
@@ -16,30 +17,40 @@
     <form action="{{ route('annonces.store') }}" method="POST">
         @csrf
         <div class="mb-3">
-            <label for="minute_but" class="form-label">Minute du But</label>
-            <input type="number" name="minute_but" class="form-control" required>
+            <label class="form-label">Type d'Annonce</label>
+            <input type="text" name="type_annonce" class="form-control" required>
         </div>
+        
         <div class="mb-3">
-            <label for="stat_individ" class="form-label">Statut Individuel</label>
-            <select name="stat_individ" class="form-control" required>
-                <option value="marque">Marqué</option>
-                <option value="non_marque">Non Marqué</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="type_but_marque" class="form-label">Type de But</label>
-            <select name="type_but_marque" class="form-control" required>
-                <option value="penalty">Penalty</option>
-                <option value="tir_libre">Tir Libre</option>
-                <option value="tir_distance">Tir de Distance</option>
-                <option value="coup_franc">Coup Franc</option>
-                <option value="autre">Autre</option>
-            </select>
+            <label class="form-label">Titre</label>
+            <input type="text" name="titre" class="form-control" required>
         </div>
 
-        <button type="submit" class="btn btn-success">Enregistrer</button>
-        <a href="{{ route('annonces.index') }}" class="btn btn-secondary">Annuler</a>
+        <div class="mb-3">
+            <label class="form-label">Message</label>
+            <textarea name="message" class="form-control" rows="4" required></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Statut</label>
+            <select name="statut_annonce" class="form-control" required>
+                <option value="Actif">Actif</option>
+                <option value="Inactif">Inactif</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Utilisateur</label>
+            <select name="user_id" class="form-control" required>
+                <option value="">Sélectionner un utilisateur</option>
+                @foreach($users as $user)
+                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                @endforeach
+            </select>
+        </div>        
+        <button type="submit" class="btn btn-primary">Ajouter</button>
     </form>
 </div>
+
 @endsection
+
 

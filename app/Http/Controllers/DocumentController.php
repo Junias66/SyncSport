@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Document;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DocumentController extends Controller
@@ -13,7 +14,8 @@ class DocumentController extends Controller
     public function index()
     {
         $document = Document::all();
-        return view('backend.document.index',compact('document'));
+        $users = User::all();
+        return view('backend.document.index',compact('document','users'));
         //
     }
 
@@ -22,7 +24,8 @@ class DocumentController extends Controller
      */
     public function create()
     {
-        return view('backend.document.create');
+        $users = User::all();
+        return view('backend.document.create',compact('users'));
         //
     }
 
@@ -37,7 +40,7 @@ class DocumentController extends Controller
             'user_id'=>'required',
         ]);
         Document::create($request->all());
-        return redirect()->route('numero.index');
+        return redirect()->route('document.index');
         //
     }
 
@@ -52,24 +55,36 @@ class DocumentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Document $document)
+    public function edit($id)
     {
+        $document = Document::findOrFail($id);
+        return view('backend.document.index',compact('document'));
         //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Document $document)
+    public function update(Request $request, $id)
     {
+        $request->validate([
+            'nom_document'=>'required',
+            'statut_doc'=>'required',
+            'user_id'=>'required',        ]);
+        $document = Document::findOrFail($id);
+        $document->update($request->all());
+        return redirect()->route('document.index');
         //
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Document $document)
+    public function destroy( $id)
     {
+        $document = Document::findOrFail($id);
+        $document->delete();
+        return redirect()->route('document.index');
         //
     }
 }

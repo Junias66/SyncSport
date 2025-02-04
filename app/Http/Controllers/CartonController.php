@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\carton;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,8 @@ class CartonController extends Controller
     public function index()
     {
         $carton = carton::all();
-        return view('backend.carton.index',compact('carton'));
+        $joueurs = User::all();
+        return view('backend.carton.index',compact('carton','joueurs'));
         //
     }
 
@@ -23,7 +25,8 @@ class CartonController extends Controller
      */
     public function create()
     {
-        return view('backend.carton.create');
+        $joueurs = User::all();
+        return view('backend.carton.create', compact('joueurs'));
         //
     }
 
@@ -54,24 +57,39 @@ class CartonController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(carton $carton)
+    public function edit( $id)
     {
+        $carton= carton ::findOrFail($id);
+        return view('backend.carton.index',compact('carton'));
         //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, carton $carton)
+    public function update(Request $request, $id)
     {
+        $request->validate([
+            'type_carton'=>'required|in:jaune,rouge',
+            'minute'=>'required',
+            'motif'=>'required',
+            'joueurconc_id'=>'required',
+        ]);
+        $carton= carton ::findOrFail($id);
+        $carton->update($request->all());
+
+        return redirect()->route('carton.index');
         //
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(carton $carton)
+    public function destroy($id)
     {
+        $carton = carton::findOrFail($id);
+        $carton->delete();
+        return redirect()->route('carton.index');
         //
     }
 }

@@ -30,9 +30,15 @@
         </div>
 
         <div class="mb-3">
-            <label for="user_id" class="form-label">Utilisateur</label>
-            <input type="text" name="user_id" class="form-control" required>
+            <label class="form-label">Utilisateur</label>
+            <select name="user_id" class="form-control" required>
+                <option value="">Sélectionner un utilisateur</option>
+                @foreach($users as $user)
+                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                @endforeach
+            </select>
         </div>
+        
 
         <button type="submit" class="btn btn-success">Enregistrer</button>
         <a href="{{ route('document.index') }}" class="btn btn-secondary">Annuler</a>
